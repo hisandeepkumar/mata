@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>माता रानी दरबार - नवरात्रि घोषणा प्रणाली</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #8B0000, #4B0082);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid gold;
+        }
+
+        .temple-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: gold;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: gold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .location {
+            font-size: 1rem;
+            color: #FFA500;
+            margin-bottom: 15px;
+        }
+
+        .audio-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .audio-controls button {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-controls button:hover {
+            background: #B22222;
+            transform: translateY(-2px);
+        }
+
+        .audio-controls button.active {
+            background: #FFD700;
+            color: #8B0000;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .announcement-btn {
+            background: linear-gradient(135deg, #8B0000, #4B0082);
+            color: white;
+            border: 2px solid gold;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .announcement-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #A52A2A, #5D3FD3);
+        }
+
+        .announcement-btn:active {
+            transform: translateY(0);
+        }
+
+        .announcement-btn.playing {
+            border-color: #FFA500;
+            background: linear-gradient(135deg, #A52A2A, #8B0000);
+        }
+
+        .btn-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .btn-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: gold;
+        }
+
+        .playing-indicator-btn {
+            display: flex;
+            align-items: center;
+            color: #FFA500;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .playing-indicator-btn .dot {
+            width: 10px;
+            height: 10px;
+            background: #FFA500;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .btn-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .current-announcement {
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            border: 2px solid gold;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .current-announcement h2 {
+            color: gold;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .announcement-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #FFD700;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .playing-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            color: #FFA500;
+            font-weight: bold;
+        }
+
+        .playing-indicator .dot {
+            width: 12px;
+            height: 12px;
+            background: #FFA500;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #FFD700;
+            font-size: 1.1rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .announcement-text {
+                font-size: 1.2rem;
+            }
+            
+            .audio-controls button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="temple-icon">🛕</div>
+            <h1>श्री सरुंड माता मंदिर कोटपुतली</h1>
+            <div class="subtitle">माता रानी दरबार - नवरात्रि उत्सव</div>
+            <div class="location">कोटपुतली, राजस्थान</div>
+            <div class="audio-controls">
+                <button id="autoBtn">🔁 ऑटो घोषणा</button>
+            </div>
+        </header>
+
+        <div class="announcement-list" id="buttonsContainer">
+            <!-- Buttons will be generated by JavaScript -->
+        </div>
+
+        <div class="current-announcement">
+            <h2>वर्तमान घोषणा</h2>
+            <div class="announcement-text" id="currentAnnouncement">
+                घोषणा का चयन करने के लिए ऊपर दिए गए बटन पर क्लिक करें
+            </div>
+            <div class="playing-indicator" id="playingIndicator" style="display: none;">
+                <div class="dot"></div>
+                <span id="playingText">घोषणा चल रही है...</span>
+            </div>
+        </div>
+
+        <footer>
+            जय माता दी! 🌺 श्री सरुंड माता मंदिर कोटपुतली 🌺
+        </footer>
+    </div>
+
+    <script>
+        // Announcements data
+        const announcements = [
+            {
+                text: "सरुंड माता मंदिर कोटपुतली में आप सभी भक्तों का हार्दिक स्वागत है। कृपया शांति और मर्यादा बनाए रखें। जय माता दी!",
+                audio: "announcement1.mp3"
+            },
+            {
+                text: "भक्तों से निवेदन है – चप्पल और जूते केवल निर्धारित स्थान पर ही रखें। मंदिर में जूते-चप्पल लेकर प्रवेश न करें।",
+                audio: "announcement2.mp3"
+            },
+            {
+                text: "दर्शन के दौरान कृपया लाइन का पालन करें। धक्का-मुक्की न करें। सभी को आराम से दर्शन करने दें।",
+                audio: "announcement3.mp3"
+            },
+            {
+                text: "महिला और वृद्ध भक्तों के लिए अलग व्यवस्था है। कृपया इनका विशेष ध्यान रखें।",
+                audio: "announcement4.mp3"
+            },
+            {
+                text: "अपने बच्चों पर नज़र रखें। उन्हें भीड़ में अकेला न छोड़ें।",
+                audio: "announcement5.mp3"
+            },
+            {
+                text: "अपने मोबाइल को साइलेंट मोड पर रखें। मंदिर की मर्यादा का पालन करें।",
+                audio: "announcement6.mp3"
+            },
+            {
+                text: "भक्तों से अनुरोध है – अपने पैसे, मोबाइल और गहने सुरक्षित रखें। भीड़ में सतर्क रहें।",
+                audio: "announcement7.mp3"
+            },
+            {
+                text: "यदि कोई वस्तु खो जाए या मिल जाए, तो तुरंत सेवा केंद्र पर जमा करवाएं।",
+                audio: "announcement8.mp3"
+            },
+            {
+                text: "चोरी या संदिग्ध व्यक्ति दिखाई देने पर तुरंत सेवा केंद्र को सूचित करें।",
+                audio: "announcement9.mp3"
+            },
+            {
+                text: "मंदिर परिसर में CCTV निगरानी है। कृपया अनुशासन बनाए रखें।",
+                audio: "announcement10.mp3"
+            },
+            {
+                text: "प्रसाद और भंडारे के समय, लाइन में खड़े रहकर क्रम से अपनी बारी का इंतज़ार करें।",
+                audio: "announcement11.mp3"
+            },
+            {
+                text: "मंदिर परिसर साफ रखें। कचरा केवल डस्टबिन में डालें।",
+                audio: "announcement12.mp3"
+            },
+            {
+                text: "आप सभी से निवेदन है – जल्दबाज़ी न करें। सभी भक्तों को माता रानी के दर्शन का अवसर मिलेगा। धैर्य रखें और शांति बनाए रखें।",
+                audio: "announcement13.mp3"
+            },
+            {
+                text: "धक्का-मुक्की से बचें। बच्चों, महिलाओं और बुजुर्गों को पहले सुविधा दें।",
+                audio: "announcement14.mp3"
+            },
+            {
+                text: "माता रानी सब पर कृपा कर रही हैं। शांति और सब्र से दर्शन करें। आपका सहयोग ही मंदिर की मर्यादा है।",
+                audio: "announcement15.mp3"
+            },
+            {
+                text: "आपका धैर्य ही सभी भक्तों को सुखद दर्शन कराएगा। कृपया लाइन में क्रम बनाए रखें।",
+                audio: "announcement16.mp3"
+            },
+            {
+                text: "आपातकाल की स्थिति में सेवा केंद्र और स्वयंसेवकों के निर्देशों का पालन करें।",
+                audio: "announcement17.mp3"
+            },
+            {
+                text: "सेवा केंद्र पर मेडिकल कैंप और फर्स्ट एड उपलब्ध है। जरूरत पड़ने पर तुरंत संपर्क करें।",
+                audio: "announcement18.mp3"
+            },
+            {
+                text: "अपने सामान का ध्यान रखें। मंदिर प्रशासन व्यक्तिगत नुकसान के लिए ज़िम्मेदार नहीं होगा।",
+                audio: "announcement19.mp3"
+            },
+            {
+                text: "यदि कोई बच्चा खो जाए तो उसे तुरंत सेवा केंद्र पर ले आएं। वहाँ से घोषणा कर परिवार से संपर्क करवाया जाएगा।",
+                audio: "announcement20.mp3"
+            },
+            {
+                text: "भक्तों से विनम्र अनुरोध है – धैर्य बनाए रखें। जल्दबाज़ी से किसी को लाभ नहीं होगा। शांति से दर्शन करें और सबको सहयोग दें। जय माता दी!",
+                audio: "announcement21.mp3"
+            },
+            {
+                text: "भक्तों से विनम्र निवेदन है – मंदिर परिसर में मोबाइल से फोटो या वीडियो न बनाएं। इससे लाइन रुकती है, भीड़ बढ़ती है और दूसरे भक्तों को असुविधा होती है। माता रानी के दर्शन सभी को शांति से करने दें। कृपया दर्शन पर ध्यान दें, मोबाइल पर नहीं। जय माता दी!",
+                audio: "announcement22.mp3"
+            },
+            {
+                text: "भक्तों से निवेदन है – कृपया याद रखें कि धैर्य ही सबसे बड़ी भक्ति है। जल्दबाज़ी में किया गया दर्शन अधूरा होता है। शांति से माता रानी के चरणों में समय बिताएं और सच्चा सुख पाएं।",
+                audio: "announcement23.mp3"
+            },
+            {
+                text: "माता रानी का आशीर्वाद पाने के लिए सिर्फ दर्शन ही नहीं, बल्कि मन की शांति और संयम भी आवश्यक है। कृपया धैर्य रखें और अपने व्यवहार से मंदिर की मर्यादा बनाए रखें।",
+                audio: "announcement24.mp3"
+            },
+            {
+                text: "जो भक्त धैर्य और अनुशासन से चलते हैं, उन्हें माता रानी की कृपा सबसे पहले प्राप्त होती है। कृपया एक-दूसरे को सहयोग दें और शांति बनाए रखें।",
+                audio: "announcement25.mp3"
+            },
+            {
+                text: "याद रखिए – मंदिर केवल दर्शन का स्थान नहीं, बल्कि आत्मिक शांति का केंद्र है। धक्का-मुक्की और जल्दबाज़ी से न तो आपको लाभ होगा, न ही दूसरों को। धैर्य ही सच्चा साधना है।",
+                audio: "announcement26.mp3"
+            },
+            {
+                text: "भक्तों से विनम्र निवेदन है – कृपया अपने मन को शांत रखें। जैसे नदी की धारा धीरे-धीरे बहती है, वैसे ही शांति से दर्शन करने पर ही माता का सच्चा आशीर्वाद मिलता है।",
+                audio: "announcement27.mp3"
+            },
+            {
+                text: "ध्यान दें – माता रानी हर भक्त के भाव को जानती हैं। इसलिए धैर्यपूर्वक लाइन में खड़े रहें, क्योंकि माता भावनाओं को देखती हैं, जल्दबाज़ी को नहीं।",
+                audio: "announcement28.mp3"
+            },
+            {
+                text: "याद रखिए – भक्ति का सबसे सुंदर रूप सेवा और संयम है। जो भक्त दूसरों को सहयोग देते हैं, वही माता रानी की सच्ची कृपा के अधिकारी बनते हैं।",
+                audio: "announcement29.mp3"
+            },
+            {
+                text: "जल्दबाज़ी और अशांति से माता प्रसन्न नहीं होतीं। धैर्य, शांति और सद्भाव से ही माता रानी की पूजा पूर्ण होती है। कृपया इस भक्ति का पालन करें। जय माता दी!",
+                audio: "announcement30.mp3"
+            }
+        ];
+
+        // DOM elements
+        const buttonsContainer = document.getElementById('buttonsContainer');
+        const currentAnnouncement = document.getElementById('currentAnnouncement');
+        const playingIndicator = document.getElementById('playingIndicator');
+        const playingText = document.getElementById('playingText');
+        const autoBtn = document.getElementById('autoBtn');
+
+        // Global variables
+        let currentAudio = null;
+        let autoModeInterval = null;
+        let isAutoMode = false;
+        let currentAnnouncementIndex = -1;
+        let announcementButtons = [];
+
+        // Create buttons for announcements
+        announcements.forEach((announcement, index) => {
+            const button = document.createElement('button');
+            button.className = 'announcement-btn';
+            button.innerHTML = `
+                <div class="btn-header">
+                    <div class="btn-number">घोषणा ${index + 1}</div>
+                    <div class="playing-indicator-btn" style="display: none;">
+                        <div class="dot"></div>
+                        <span>चल रही है</span>
+                    </div>
+                </div>
+                <div class="btn-text">${announcement.text}</div>
+            `;
+            
+            button.addEventListener('click', () => {
+                // Stop auto mode if active
+                stopAutoMode();
+                
+                // Play the selected announcement
+                playAnnouncement(index);
+            });
+            
+            buttonsContainer.appendChild(button);
+            announcementButtons.push(button);
+        });
+
+        // Function to play announcement
+        function playAnnouncement(index) {
+            // Stop current audio if playing
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
+            // Remove playing class from all buttons
+            announcementButtons.forEach(btn => {
+                btn.classList.remove('playing');
+                const indicator = btn.querySelector('.playing-indicator-btn');
+                indicator.style.display = 'none';
+            });
+            
+            // Add playing class to current button
+            announcementButtons[index].classList.add('playing');
+            const currentIndicator = announcementButtons[index].querySelector('.playing-indicator-btn');
+            currentIndicator.style.display = 'flex';
+            
+            // Update current announcement display
+            currentAnnouncement.textContent = announcements[index].text;
+            playingText.textContent = `घोषणा ${index + 1} चल रही है...`;
+            playingIndicator.style.display = 'flex';
+            
+            // Create and play audio
+            currentAudio = new Audio(announcements[index].audio);
+            currentAudio.play();
+            
+            // Update current announcement index
+            currentAnnouncementIndex = index;
+            
+            // Add event listener for when audio ends
+            currentAudio.addEventListener('ended', () => {
+                playingIndicator.style.display = 'none';
+                announcementButtons[index].classList.remove('playing');
+                currentIndicator.style.display = 'none';
+                currentAudio = null;
+                
+                // If auto mode is active, schedule next announcement
+                if (isAutoMode) {
+                    setTimeout(playRandomAnnouncement, 10000); // 10 seconds delay
+                }
+            });
+            
+            // Add event listener for errors
+            currentAudio.addEventListener('error', () => {
+                playingIndicator.style.display = 'none';
+                announcementButtons[index].classList.remove('playing');
+                currentIndicator.style.display = 'none';
+                currentAnnouncement.textContent = "ऑडियो फ़ाइल लोड करने में त्रुटि। कृपया जांचें कि ऑडियो फ़ाइल मौजूद है।";
+                currentAudio = null;
+            });
+        }
+
+        // Function to play random announcement
+        function playRandomAnnouncement() {
+            if (!isAutoMode) return;
+            
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * announcements.length);
+            } while (randomIndex === currentAnnouncementIndex && announcements.length > 1);
+            
+            playAnnouncement(randomIndex);
+        }
+
+        // Function to start auto mode
+        function startAutoMode() {
+            isAutoMode = true;
+            autoBtn.classList.add('active');
+            autoBtn.textContent = "🔁 ऑटो घोषणा चालू";
+            
+            // Play first random announcement
+            playRandomAnnouncement();
+        }
+
+        // Function to stop auto mode
+        function stopAutoMode() {
+            isAutoMode = false;
+            autoBtn.classList.remove('active');
+            autoBtn.textContent = "🔁 ऑटो घोषणा";
+            
+            // Clear any pending timeout
+            if (autoModeInterval) {
+                clearTimeout(autoModeInterval);
+                autoModeInterval = null;
+            }
+        }
+
+        // Auto button event listener
+        autoBtn.addEventListener('click', () => {
+            if (isAutoMode) {
+                stopAutoMode();
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                    playingIndicator.style.display = 'none';
+                    
+                    // Remove playing class from all buttons
+                    announcementButtons.forEach(btn => {
+                        btn.classList.remove('playing');
+                        const indicator = btn.querySelector('.playing-indicator-btn');
+                        indicator.style.display = 'none';
+                    });
+                }
+            } else {
+                startAutoMode();
+            }
+        });
+
+        // Instructions for audio files
+        console.log("ऑडियो फ़ाइलें जोड़ने के लिए:");
+        console.log("1. announcement1.mp3 से announcement30.mp3 तक की ऑडियो फ़ाइलें बनाएं");
+        console.log("2. इन फ़ाइलों को आपकी वेबसाइट के उसी फ़ोल्डर में रखें जहाँ HTML फ़ाइल है");
+        console.log("3. यदि फ़ाइलें अलग फ़ोल्डर में हैं, तो ऑडियो पथ अपडेट करें");
+    </script>
+</body>
+</html>
